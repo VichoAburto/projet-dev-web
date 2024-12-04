@@ -1,0 +1,27 @@
+.header {
+    background: var(--primary-color) !important;
+    color: #fff !important;
+    padding: 1rem 2rem !important;
+    text-align: center !important;
+  }
+
+  .header-title {
+    margin: 0 !important;
+    font-size: calc(2rem + 2vw) !important;
+    font-family: 'WindSong', sans-serif !important;
+    margin-right: 5% !important;
+  }
+
+  .header-nav {
+    margin-top: 0.5rem !important;
+  }
+
+  .header-link {
+    color: #fff !important;
+    margin-right: 1rem !important;
+    text-decoration: none !important;
+  }
+
+  .header-link:hover {
+    color: var(--secondary-color) !important;
+  }

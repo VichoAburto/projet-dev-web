@@ -1,95 +1,94 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import React, { useState } from "react";
+import "../styles/HomePage.css";
+import Game from "./game/page";
+
+const HomePage = () => {
+  const [player1, setPlayer1] = useState({ name: "", avatar: null });
+  const [player2, setPlayer2] = useState({ name: "", avatar: null });
+  const [showGame, setShowGame] = useState(false);
+
+  const avatars = ["/avatar1.png", "/avatar2.png", "/avatar3.png", "/avatar4.png", "/avatar5.png", "/avatar6.png"];
+
+  const handleAvatarClick = (player, index) => {
+    if (player === 1) {
+      setPlayer1((prev) => ({ ...prev, avatar: avatars[index] }));
+    } else if (player === 2) {
+      setPlayer2((prev) => ({ ...prev, avatar: avatars[index] }));
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (player1.name && player1.avatar && player2.name && player2.avatar) {
+      setShowGame(true);
+    } else {
+      alert("Both players must enter their names and select an avatar.");
+    }
+  };
+
+  if (showGame) {
+    return <Game player1={player1} player2={player2} />;
+  }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="home-page">
+      <h1 className="title">Welcome to the Avatar Selection</h1>
+      <p className="intro-text">Please choose an avatar and enter your name below for each player.</p>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <div className="columns">
+        {/* Player 1 */}
+        <div className="column">
+          <h2>Player 1</h2>
+          <input
+            type="text"
+            placeholder="Enter Player 1 Name"
+            value={player1.name}
+            onChange={(e) => setPlayer1((prev) => ({ ...prev, name: e.target.value }))}
+            className="name-input"
+          />
+          <div className="avatar-grid">
+            {avatars.map((avatar, index) => (
+              <img
+                key={`player1-avatar-${index}`}
+                src={avatar}
+                alt={`Player 1 Avatar ${index + 1}`}
+                className={`avatar ${player1.avatar === avatar ? "selected" : ""}`}
+                onClick={() => handleAvatarClick(1, index)}
+              />
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        {/* Player 2 */}
+        <div className="column">
+          <h2>Player 2</h2>
+          <input
+            type="text"
+            placeholder="Enter Player 2 Name"
+            value={player2.name}
+            onChange={(e) => setPlayer2((prev) => ({ ...prev, name: e.target.value }))}
+            className="name-input"
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <div className="avatar-grid">
+            {avatars.map((avatar, index) => (
+              <img
+                key={`player2-avatar-${index}`}
+                src={avatar}
+                alt={`Player 2 Avatar ${index + 1}`}
+                className={`avatar ${player2.avatar === avatar ? "selected" : ""}`}
+                onClick={() => handleAvatarClick(2, index)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <button onClick={handleButtonClick} className="button">
+        Lets Go
+      </button>
     </div>
   );
-}
+};
+
+export default HomePage;
