@@ -30,7 +30,7 @@ const rollDiceEffect = () => {
     if (rollIndex >= 8 || rolling) return;
 
     rollDiceEffect();
-    const randomValue = Math.floor(Math.random() * 6) + 1; // Zufallszahl 1-6
+    const randomValue = Math.floor(Math.random() * 6) + 1; // random number 1 - 6
 
     const updatedDiceValues = [...diceValues];
     updatedDiceValues[rollIndex] = randomValue;
@@ -38,9 +38,9 @@ const rollDiceEffect = () => {
     setTimeout(() => {
       setDiceValues(updatedDiceValues);
       if (randomValue === 1) {
-        setTimeout(() => handleStop(0), 500);
+        setTimeout(() => handleStop(0), 2000);
       } else if (rollIndex === 7) {
-        handleStop(updatedDiceValues.reduce((sum, val) => sum + val, 0));
+        setTimeout(() => handleStop(updatedDiceValues.reduce((sum, val) => sum + val, 0)), 2000);
       } else {
         setRollIndex(rollIndex + 1);
       }
@@ -65,18 +65,28 @@ const rollDiceEffect = () => {
   setRollIndex(0);
 
   if (currentPlayer === 2 && round === 3) {
-    const player1Total = scores.player1.reduce((sum, val) => sum + val, 0);
-    const player2Total = scores.player2.reduce((sum, val) => sum + val, 0);
+  setAnimationDistance(finalScore);
+  setShowShotPutScene(true);
 
-    const winnerData =
-      player1Total > player2Total
-        ? { name: player1.name, avatar: player1.avatar, score: player1Total }
-        : { name: player2.name, avatar: player2.avatar, score: player2Total };
 
-    setWinner(winnerData);
-    setShowHallOfFame(true);
-    return;
-  }
+  setTimeout(() => {
+    setShowShotPutScene(false);
+
+    setTimeout(() => {
+      const player1Total = scores.player1.reduce((sum, val) => sum + val, 0);
+      const player2Total = scores.player2.reduce((sum, val) => sum + val, 0);
+
+      const winnerData =
+        player1Total > player2Total
+          ? { name: player1.name, avatar: player1.avatar, score: player1Total }
+          : { name: player2.name, avatar: player2.avatar, score: player2Total };
+
+      setWinner(winnerData);
+      setShowHallOfFame(true);
+    }, 1000);
+  }, 2000);
+  return;
+}
 
   if (round < 3 && currentPlayer === 2) {
     setRound(round + 1);
@@ -84,8 +94,6 @@ const rollDiceEffect = () => {
 
   setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
 };
-
-
 
   if (showHallOfFame && winner) {
     return <HallOfFame winner={winner} />;
@@ -106,7 +114,7 @@ const rollDiceEffect = () => {
         </div>
 
         <div className="column middle-column">
-          <h2>Spielrunde {round} von 3</h2>
+          <h2>Play round {round} of 3</h2>
           <div className="player-names">
             <span className={`player-name ${currentPlayer === 1 ? "active" : ""}`}>{player1.name}</span>
             <span className="vs">vs</span>
@@ -116,7 +124,7 @@ const rollDiceEffect = () => {
           {showShotPutScene && (
              <ShotPutScene
                 distance={animationDistance}
-                onAnimationEnd={() => setShowShotPutScene(false)} // Szene schließen und zum Spiel zurückkehren
+                onAnimationEnd={() => setShowShotPutScene(false)}  // close scene and go back to game
              />
           )}
 
