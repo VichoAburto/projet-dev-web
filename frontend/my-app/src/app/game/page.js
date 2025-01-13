@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Winner from "@/components/winner";
 import "../../styles/Game.css";
 import ShotPutScene from "../animation/page";
@@ -21,10 +21,22 @@ const [animationDistance, setAnimationDistance] = useState(0);
   const [showWinner, setShowWinner] = useState(false);
   const [winner, setWinner] = useState(null);
 
-const rollDiceEffect = () => {
-  setRolling(true);
-  setTimeout(() => setRolling(false), 500);
-};
+  const rollDiceEffect = () => {
+    setRolling(true);
+    setTimeout(() => setRolling(false), 500);
+  };
+
+  useEffect(() => {
+    if (player1 && player2) {
+      // Set cookies for player1 and player2 using the props
+      document.cookie = `player1=${player1.name}; max-age=86400; path=/`;
+      document.cookie = `avatar1=${player1.avatar}; max-age=86400; path=/`;
+      document.cookie = `player2=${player2.name}; max-age=86400; path=/`;
+      document.cookie = `avatar2=${player2.avatar}; max-age=86400; path=/`;
+
+      console.log("Cookies set successfully!");
+    }
+  }, [player1, player2]); // Re-run this effect when player1 or player2 change
 
   const handleRollDice = () => {
     if (rollIndex >= 8 || rolling) return;
