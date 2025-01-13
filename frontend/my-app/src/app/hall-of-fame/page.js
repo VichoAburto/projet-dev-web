@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import "../../styles/halloffame.css";
 
 const HallOfFame = () => {
   const [hallOfFame, setHallOfFame] = useState([]);

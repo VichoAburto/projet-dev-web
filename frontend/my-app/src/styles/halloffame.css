@@ -1,0 +1,93 @@
+/* Allgemeine Stile */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container für die Hall of Fame */
+.hall-of-fame {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  margin: 20px;
+}
+
+/* Titel */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Button für "Load Hall of Fame" */
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+/* Hall of Fame Liste */
+.hall-of-fame-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hall-of-fame-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hall-of-fame-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.hall-of-fame-list li .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+/* Text innerhalb der Liste */
+.hall-of-fame-list li p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.hall-of-fame-list li p strong {
+  color: #333;
+}
+
