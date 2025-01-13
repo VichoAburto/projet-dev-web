@@ -5,8 +5,8 @@ export default function Header() {
     <header className="header">
       <div className="header-title">Lancer de poids</div>
       <nav className="header-nav">
-        <a href="/" className="header-link">Home</a>
-        <a href="/hall-of-fame" className="header-link">Hall of fame</a>
+        <a href="/" className="header-link">Domicile</a>
+        <a href="/hall-of-fame" className="header-link">Temple de la renommée</a>
       </nav>
     </header>
   );

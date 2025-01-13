@@ -145,7 +145,7 @@ const [animationDistance, setAnimationDistance] = useState(0);
 
   return (
     <div className="game-page">
-      <h1 className="title">Players Overview</h1>
+      <h1 className="title">Aperçu des acteurs</h1>
       <div className="columns">
         <div className="column">
           <h2>{player1.name}</h2>
@@ -158,10 +158,10 @@ const [animationDistance, setAnimationDistance] = useState(0);
         </div>
 
         <div className="column middle-column">
-          <h2>Play round {round} of 3</h2>
+          <h2>Jouez le tour {round} de 3</h2>
           <div className="player-names">
             <span className={`player-name ${currentPlayer === 1 ? "active" : ""}`}>{player1.name}</span>
-            <span className="vs">vs</span>
+            <span className="vs">contre</span>
             <span className={`player-name ${currentPlayer === 2 ? "active" : ""}`}>{player2.name}</span>
           </div>
 
@@ -181,8 +181,8 @@ const [animationDistance, setAnimationDistance] = useState(0);
           </div>
 
           <div className="buttons">
-            <button onClick={handleRollDice} disabled={rollIndex >= 8 || rolling}>Lets Go</button>
-            <button onClick={() => handleStop()}>Stop</button>
+            <button onClick={handleRollDice} disabled={rollIndex >= 8 || rolling}>On y va</button>
+            <button onClick={() => handleStop()}>Arrêter</button>
           </div>
         </div>
 

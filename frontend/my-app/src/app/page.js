@@ -63,13 +63,13 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <h1 className="title">Welcome to the Avatar Selection</h1>
-      <p className="intro-text">Please choose an avatar and enter your name below for each player.</p>
+      <h1 className="title">Bienvenue à Avatar Selection</h1>
+      <p className="intro-text">Veuillez choisir un avatar et entrer votre nom ci-dessous pour chaque joueur.</p>
 
       <div className="columns">
         {/* Player 1 */}
         <div className="column">
-          <h2>Player 1</h2>
+          <h2>Joueur 1</h2>
           <input
             type="text"
             placeholder="Enter Player 1 Name"
@@ -92,7 +92,7 @@ const HomePage = () => {
 
         {/* Player 2 */}
         <div className="column">
-          <h2>Player 2</h2>
+          <h2>Joueur 2</h2>
           <input
             type="text"
             placeholder="Enter Player 2 Name"
@@ -115,7 +115,7 @@ const HomePage = () => {
       </div>
 
       <button onClick={handleButtonClick} className="button">
-        Let's Go
+        On y va
       </button>
     </div>
   );

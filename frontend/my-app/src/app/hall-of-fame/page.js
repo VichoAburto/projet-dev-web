@@ -28,16 +28,16 @@ const HallOfFame = () => {
 
   return (
     <div className="hall-of-fame">
-      <h1 className="title">Hall of Fame</h1>
+      <h1 className="title">Temple de la renommée</h1>
       <button onClick={fetchHallOfFame} disabled={loading}>
-        {loading ? "Loading..." : "Load Hall of Fame"}
+        {loading ? "Loading..." : "charge"}
       </button>
       {error && <p className="error">{error}</p>}
       <ul className="hall-of-fame-list">
         {hallOfFame.map((winner, index) => (
           <li key={index}>
             <img src={winner.avatar} alt={`${winner.username}'s Avatar`} className="avatar" />
-            <p><strong>Name:</strong> {winner.username}</p>
+            <p><strong>Nom:</strong> {winner.username}</p>
             <p><strong>Score:</strong> {winner.points}</p>
             <p><strong>Date:</strong> {new Date(winner.dateEntry).toLocaleDateString()}</p>
           </li>
