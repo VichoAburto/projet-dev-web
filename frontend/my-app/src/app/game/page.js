@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import HallOfFame from "../hall-of-fame/page";
+import Winner from "@/components/winner";
 import "../../styles/Game.css";
 import ShotPutScene from "../animation/page";
 
@@ -18,7 +18,7 @@ const [animationDistance, setAnimationDistance] = useState(0);
     player2: [0, 0, 0],
   });
   const [rollIndex, setRollIndex] = useState(0);
-  const [showHallOfFame, setShowHallOfFame] = useState(false);
+  const [showWinner, setShowWinner] = useState(false);
   const [winner, setWinner] = useState(null);
 
 const rollDiceEffect = () => {
@@ -82,7 +82,7 @@ const rollDiceEffect = () => {
           : { name: player2.name, avatar: player2.avatar, score: player2Total };
 
       setWinner(winnerData);
-      setShowHallOfFame(true);
+      setShowWinner(true);
     }, 1000);
   }, 2000);
   return;
@@ -95,8 +95,8 @@ const rollDiceEffect = () => {
   setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
 };
 
-  if (showHallOfFame && winner) {
-    return <HallOfFame winner={winner} />;
+  if (showWinner && winner) {
+    return <Winner winner={winner} />;
   }
 
   return (

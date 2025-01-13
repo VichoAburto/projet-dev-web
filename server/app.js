@@ -4,7 +4,7 @@ import db from './db.js';
 
 const app = express();
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 4000;
 
 // Use cookie-parser middleware
 app.use(cookieParser());
@@ -52,7 +52,10 @@ app.post('/', (req, res) => {
     res.redirect('/');
 });
 
-app.listen(port, hostname);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
 console.log(`Server running at http://${hostname}:${port}/`);
 
 db.sequelize.authenticate()
