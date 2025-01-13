@@ -47,6 +47,29 @@ const rollDiceEffect = () => {
     }, 500);
   };
 
+  //this is new
+  const saveToHallOfFame = async (newEntry) => {
+  try {
+    const response = await fetch("http://localhost:4000/hall-of-fame", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEntry),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Successfully saved:", result);
+    } else {
+      console.error("Error saving:", response.status);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+
   const handleStop = (finalScore = null) => {
   const updatedScores = { ...scores };
   const currentScores = currentPlayer === 1 ? updatedScores.player1 : updatedScores.player2;
@@ -80,6 +103,15 @@ const rollDiceEffect = () => {
         player1Total > player2Total
           ? { name: player1.name, avatar: player1.avatar, score: player1Total }
           : { name: player2.name, avatar: player2.avatar, score: player2Total };
+
+      //This is new
+      const winnerData2 =
+        player1Total > player2Total
+          ? { username: player1.name, points: player1Total, dateEntry: new Date().toISOString(), avatar: player1.avatar }
+          : { username: player2.name, points: player2Total, dateEntry: new Date().toISOString(), avatar: player2.avatar };
+
+      saveToHallOfFame(winnerData2);
+
 
       setWinner(winnerData);
       setShowWinner(true);

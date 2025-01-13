@@ -1,10 +1,13 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import db from './db.js';
+import cors from 'cors';
 
 const app = express();
 const hostname = '127.0.0.1';
 const port = 4000;
+
+app.use(cors());
 
 // Use cookie-parser middleware
 app.use(cookieParser());
@@ -71,8 +74,14 @@ const { HallOfFame } = db.models;
 app.get('/hall-of-fame', (req, res) => {
     HallOfFame.findAll()
         .then((hallOfFame) => {
+            // Sortiere nach Punkten in absteigender Reihenfolge
             hallOfFame.sort((a, b) => b.points - a.points);
-            res.json(hallOfFame);
+
+            // Konvertiere Sequelize-Instanzen in einfache JavaScript-Objekte
+            const formattedData = hallOfFame.map(entry => entry.toJSON());
+
+            // Sende nur die relevanten Daten zurück
+            res.json(formattedData);
         })
         .catch((error) => {
             console.error(error);
@@ -80,16 +89,29 @@ app.get('/hall-of-fame', (req, res) => {
         });
 });
 
-app.post('/hall-of-fame', (req, res) => {
-    const { username, points, avatar } = req.body;
-    const dateEntry = new Date();
 
-    HallOfFame.create({ username, points, dateEntry, avatar })
-        .then((hallOfFame) => {
-            res.json(hallOfFame);
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send('An error occurred while creating the Hall of Fame entry.');
-        });
+// POST-Route zum Hinzufügen eines neuen Eintrags in die Hall of Fame
+app.post('/hall-of-fame', (req, res) => {
+  const { username, points, dateEntry, avatar } = req.body;
+
+  // Validierung der Eingabedaten
+  if (!username || !points || !dateEntry) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Erstelle einen neuen HallOfFame-Eintrag
+  HallOfFame.create({
+    username,
+    points,
+    dateEntry,
+    avatar
+  })
+    .then((entry) => {
+      res.status(201).json(entry); // Erfolg: gebe den gespeicherten Eintrag zurück
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('An error occurred while saving the Hall of Fame entry.');
+    });
 });
+

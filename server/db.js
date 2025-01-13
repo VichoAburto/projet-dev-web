@@ -36,21 +36,23 @@ const HallOfFame = sequelize.define(
   }
 );
 
-// Add some data to the model
-HallOfFame.sync({ force: false }).then(() => {
-  HallOfFame.create({
+// Add some data to the model asynchronously
+async function addEntries() {
+  await HallOfFame.create({
     username: "John Doe",
-    points: 100,
-    dateEntry: new Date(),
-    avatar: "https://example.com/avatar.jpg",
+    points: 10,
+    dateEntry: new Date("2024-01-13"), // Store as a JavaScript Date object
+    avatar: "/avatar2.png",
   });
-  HallOfFame.create({
+  await HallOfFame.create({
     username: "Jane Doe",
-    points: 200,
-    dateEntry: new Date(),
-    avatar: "https://example.com/avatar.jpg",
+    points: 8,
+    dateEntry: new Date("2024-01-13"),
+    avatar: "/avatar5.png",
   });
-});
+}
+
+HallOfFame.sync({ force: true }).then(addEntries);
 
 // Export sequelize instance and models
 export default {
